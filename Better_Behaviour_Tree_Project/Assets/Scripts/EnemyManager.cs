@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     private int _healthpoints;
+    public bool _isCrate;
 
     private void Awake()
     {
@@ -19,6 +20,10 @@ public class EnemyManager : MonoBehaviour
 
     private void _Die()
     {
-        Destroy(gameObject);
+        //if (gameObject != null)
+        {
+            Destroy(gameObject);
+        }
+        
     }
 }

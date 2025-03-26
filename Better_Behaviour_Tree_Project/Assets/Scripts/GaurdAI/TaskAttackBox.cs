@@ -8,43 +8,65 @@ public class TaskAttackBox : Node
 {
     private Transform _lastTarget;
     private EnemyManager _enemyManager;
-    public GuardBT _guardBT;
+    private GuardBT _guardBT;
+    private GameObject _crate;
 
     private float _attackTime = 1f;
     private float _attackCounter = 0f;
 
-    void Start()
-    {
-        //_guardBT = FindObjectsOfType<GuardBT>();
-    }
+
 
     public override NodeState Evaluate()
     {
+        
         Transform target = (Transform)GetData("target");
+
+        _guardBT = GameObject.Find("ToonRTS_demo_Knight").GetComponent<GuardBT>();
+
+        
+
         if (target != _lastTarget)
         {
             _enemyManager = target.GetComponent<EnemyManager>();
             _lastTarget = target;
         }
 
-        _attackCounter += Time.deltaTime;
-        if (_attackCounter >= _attackTime)
+        //if (_enemyManager != null)
         {
-            bool enemyIsDead = _enemyManager.TakeHit();
-            if (enemyIsDead)
+            if (_enemyManager._isCrate)
             {
-                ClearData("target");
-                //_animator.SetBool("Attacking", false);
-                //_animator.SetBool("Walking", true);
+                _attackCounter += Time.deltaTime;
+                if (_attackCounter >= _attackTime)
+                {
+                    bool enemyIsDead = _enemyManager.TakeHit();
+                    if (enemyIsDead)
+                    {
+                        ClearData("target");
+                        //_animator.SetBool("Attacking", false);
+                        //_animator.SetBool("Walking", true);
+
+                        _guardBT.firePart.Stop();
+                    }
+                    else
+                    {
+                        _guardBT.firePart.Play();
+                        _attackCounter = 0f;
+                    }
+                }
             }
             else
             {
-                _guardBT.firePart.Play();
-                _attackCounter = 0f;
+                Debug.Log("!");
+                state = NodeState.FAILURE;
+                return state;
             }
         }
+        
 
-        state = NodeState.RUNNING;
+        //state = NodeState.SUCCESS;
         return state;
+        
+
+        
     }
 }

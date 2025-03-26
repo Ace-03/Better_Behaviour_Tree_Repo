@@ -18,23 +18,23 @@ public class GuardBT : BehaviorTree.Tree
         {
             new Sequence(new List<Node>
             {
-                new CheckBoxInAttackRange(transform),
+                new CheckEnemyInAttackRange(transform),
                 new TaskAttackBox(),
-
+                
             }),
             new Sequence(new List<Node>
             {
                 new CheckEnemyInAttackRange(transform),
                 new TaskAttack(transform),
             }),
-            
+
             new Sequence(new List<Node>
             {
                 new CheckEnemyInFOVRange(transform),
                 new TaskGoToTarget(transform),
             }),
             new TaskPatrol(transform, waypoints),
-        });
+        }) ;
 
         return root;
     }

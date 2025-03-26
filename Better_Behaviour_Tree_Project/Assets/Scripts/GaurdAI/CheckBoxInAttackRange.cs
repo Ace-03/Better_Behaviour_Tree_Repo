@@ -23,15 +23,26 @@ public class CheckBoxInAttackRange : Node
             return state;
         }
 
-        Transform target = (Transform)t;
-        if (Vector3.Distance(_transform.position, target.position) <= GuardBT.attackRange)
-        {
-            _animator.SetBool("Attacking", true);
-            _animator.SetBool("Walking", false);
+        Debug.Log("?");
 
-            state = NodeState.SUCCESS;
+        Transform target = (Transform)t;
+        if (target != null)
+        {
+            if (Vector3.Distance(_transform.position, target.position) <= GuardBT.attackRange)
+            {
+                _animator.SetBool("Attacking", true);
+                _animator.SetBool("Walking", false);
+
+                state = NodeState.SUCCESS;
+                return state;
+            }
+        }
+        else
+        {
+            state = NodeState.FAILURE;
             return state;
         }
+        
 
         state = NodeState.FAILURE;
         return state;

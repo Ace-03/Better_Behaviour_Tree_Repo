@@ -24,15 +24,26 @@ public class CheckEnemyInAttackRange : Node
             return state;
         }
 
-        Transform target = (Transform)t;
-        if (Vector3.Distance(_transform.position, target.position) <= GuardBT.attackRange)
-        {
-            _animator.SetBool("Attacking", true);
-            _animator.SetBool("Walking", false);
+        Debug.Log("Evaluating NodeState");
 
-            state = NodeState.SUCCESS;
-            return state;
+        Transform target = (Transform)t;
+        //if (target != null)
+        {
+            if (Vector3.Distance(_transform.position, target.position) <= GuardBT.attackRange)
+            {
+                _animator.SetBool("Attacking", true);
+                _animator.SetBool("Walking", false);
+
+                state = NodeState.SUCCESS;
+                return state;
+            }
         }
+        //else
+        {
+            //state = NodeState.SUCCESS;
+            //return state;
+        }
+
 
         state = NodeState.FAILURE;
         return state;

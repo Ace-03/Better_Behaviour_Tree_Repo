@@ -40,6 +40,7 @@ public class TaskAttack : Node
             }
             else
             {
+                Debug.Log("Attack");
                 _attackCounter = 0f;
             }
         }
