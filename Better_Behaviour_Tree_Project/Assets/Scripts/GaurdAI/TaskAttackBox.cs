@@ -15,7 +15,7 @@ public class TaskAttackBox : Node
 
     void Start()
     {
-        _guardBT = FindObjectsOfType<GuardBT>();
+        //_guardBT = FindObjectsOfType<GuardBT>();
     }
 
     public override NodeState Evaluate()
