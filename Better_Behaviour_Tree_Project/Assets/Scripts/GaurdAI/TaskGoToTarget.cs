@@ -17,6 +17,8 @@ public class TaskGoToTarget : Node
     {
         Transform target = (Transform)GetData("target");
 
+        Debug.Log(target);
+
         if (Vector3.Distance(_transform.position, target.position) > 0.01f)
         {
             _transform.position = Vector3.MoveTowards(
