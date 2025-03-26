@@ -19,7 +19,7 @@ public class TaskGoToTarget : Node
 
         //if (target != null)
         {
-            Debug.Log(target);
+            //Debug.Log(target);
 
             if (Vector3.Distance(_transform.position, target.position) > 0.01f)
             {

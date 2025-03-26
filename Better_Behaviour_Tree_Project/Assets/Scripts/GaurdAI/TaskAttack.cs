@@ -22,28 +22,37 @@ public class TaskAttack : Node
     public override NodeState Evaluate()
     {
         Transform target = (Transform)GetData("target");
-        if (target != _lastTarget)
+        //if (target != null)
         {
-            _enemyManager = target.GetComponent<EnemyManager>();
-            _lastTarget = target;
-        }
+            if (target != _lastTarget)
+            {
+                _enemyManager = target.GetComponent<EnemyManager>();
+                _lastTarget = target;
+            }
 
-        _attackCounter += Time.deltaTime;
-        if (_attackCounter >= _attackTime)
-        {
-            bool enemyIsDead = _enemyManager.TakeHit();
-            if (enemyIsDead)
+            _attackCounter += Time.deltaTime;
+            if (_attackCounter >= _attackTime)
             {
-                ClearData("target");
-                _animator.SetBool("Attacking", false);
-                _animator.SetBool("Walking", true);
-            }
-            else
-            {
-                Debug.Log("Attack");
-                _attackCounter = 0f;
+                bool enemyIsDead = _enemyManager.TakeHit();
+                if (enemyIsDead)
+                {
+                    ClearData("target");
+                    _animator.SetBool("Attacking", false);
+                    _animator.SetBool("Walking", true);
+                }
+                else
+                {
+                    Debug.Log("Attack");
+                    _attackCounter = 0f;
+                }
             }
         }
+        //else
+        {
+            //state = NodeState.FAILURE;
+            //return state;
+        }
+       
 
         state = NodeState.RUNNING;
         return state;
